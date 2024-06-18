@@ -1,0 +1,54 @@
+# Node.js dependencies
+/node_modules
+
+# Build directories
+/dist
+/build
+
+# Dependency directories
+/jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.idea
+.vscode
+.history
+
+# GitHub files
+.github
+
+# Coverage directory used by testing tools
+/coverage
+
+# Temporary files
+*.tmp
+*.temp
+
+# MacOS system files
+.DS_Store
+
+# Lint and format
+.eslintcache
+
+# Ignore compiled JavaScript files
+**/*.js
+
+# Lock files
+package-lock.json
+yarn.lock

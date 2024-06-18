@@ -1,0 +1,25 @@
+# Ignore artifacts:
+build
+coverage
+dist
+
+# Ignore all node_modules folders:
+node_modules
+
+# Ignore lock files:
+package-lock.json
+yarn.lock
+
+# Ignore other specific files and directories:
+.git
+.github
+.vscode
+.idea
+
+# Ignore compiled JavaScript files
+**/*.js
+
+# Ignore specific configuration files:
+.eslintrc.json
+.prettierrc
+tsconfig.json
