@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import logger from "../utils/logger";
 import {
   createPayment,
-  getPayments,
   getPaymentsById,
   updatePaymentStatus,
 } from "../service/paymentsService";
@@ -11,20 +10,6 @@ import { PaymentStatus } from "../models/enums";
 import { randomUUID } from "crypto";
 import { getMerchantById } from "../service/merchantService";
 import { ProcessPaymentResponse, processPayment } from "../simulator/acquirer";
-
-export const getPaymentsHandler = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  logger.info("getPayments endpoint hit");
-  try {
-    const payments: Payment[] = await getPayments();
-    res.status(200).send(payments);
-  } catch (error) {
-    next(error);
-  }
-};
 
 export const getPaymentByIdHandler = async (
   req: Request,

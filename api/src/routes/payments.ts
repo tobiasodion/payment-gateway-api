@@ -1,25 +1,12 @@
 import { Router } from "express";
 import {
   getPaymentByIdHandler,
-  getPaymentsHandler,
   postPaymentHandler,
 } from "../controllers/paymentController";
 import { validateRequest } from "../middleware/validateRequest";
 import { paymentSchema } from "../validators/paymentValidator";
 
 const router = Router();
-
-/**
- * Gets a list of payments for a given merchant.
- * @swagger
- * /payments:
- *   get:
- *     summary: Gets a list of payments for a given merchant
- *     responses:
- *       200:
- *         description: Returns a hello message.
- */
-router.get("/", getPaymentsHandler);
 
 /**
  * Gets a payment by id.
