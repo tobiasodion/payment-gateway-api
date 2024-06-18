@@ -4,6 +4,8 @@ import {
   getPaymentsHandler,
   postPaymentHandler,
 } from "../controllers/paymentController";
+import { validateRequest } from "../middleware/validateRequest";
+import { paymentSchema } from "../validators/paymentValidator";
 
 const router = Router();
 
@@ -58,6 +60,6 @@ router.get("/:id", getPaymentByIdHandler);
  *       200:
  *         description: Returns a hello message.
  */
-router.post("/", postPaymentHandler);
+router.post("/", validateRequest(paymentSchema), postPaymentHandler);
 
 export default router;

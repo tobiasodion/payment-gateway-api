@@ -1,14 +1,18 @@
+import { PaymentStatus } from "./enums";
+
 export interface Payment {
-  id: number;
+  id: string;
   amount: number;
   currency: string;
-  status: string;
+  status: PaymentStatus;
   merchantId: string;
-  creditCard: {
-    cardNumber: string;
-    cardHolder: string;
-    expirationDate: string;
-    cvv: string;
-  };
+  creditCard: CreditCard;
   reference: string;
+}
+
+export interface CreditCard {
+  cardNumber: string;
+  cardHolder: string;
+  expirationDate: string;
+  cvv: string;
 }

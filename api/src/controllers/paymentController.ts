@@ -1,12 +1,16 @@
 import { NextFunction, Request, Response } from "express";
 import logger from "../utils/logger";
 import {
-  createPayments,
+  createPayment,
   getPayments,
   getPaymentsById,
+  updatePaymentStatus,
 } from "../service/paymentsService";
 import { Payment } from "../models/payments";
-import { payments } from "../data/payments";
+import { PaymentStatus } from "../models/enums";
+import { randomUUID } from "crypto";
+import { getMerchantById } from "../service/merchantService";
+import { ProcessPaymentResponse, processPayment } from "../simulator/acquirer";
 
 export const getPaymentsHandler = async (
   req: Request,
@@ -29,7 +33,7 @@ export const getPaymentByIdHandler = async (
 ) => {
   logger.info("getPaymentById enpoint hit");
   try {
-    const id = Number(req.params.id);
+    const id = req.params.id;
     const payment: Payment | undefined = await getPaymentsById(id);
     if (!payment) {
       res.status(404).send("Payment not found");
@@ -48,31 +52,34 @@ export const postPaymentHandler = async (
 ) => {
   logger.info("postPayment endpoint hit");
   try {
-    //validate the request(zod)
+    //Validate payment details - (merchant id)
+    const merchant = await getMerchantById(req.body.merchantId);
+
+    //Create a payment in DB with pending status
     const payment: Payment = {
-      id: payments.length + 1,
-      amount: 1000,
-      currency: "USD",
-      status: "pending",
-      merchantId: "123",
-      creditCard: {
-        cardNumber: "1234-5678-9012-3456",
-        cardHolder: "John Doe",
-        expirationDate: "12/21",
-        cvv: "123",
-      },
-      reference: "123456",
+      id: randomUUID(),
+      status: PaymentStatus.PENDING,
+      ...req.body,
     };
-    //Create a payment in DB
-    //Validate payment details
-    //Create a payment in DB
-    const newPayment: Payment = await createPayments(payment);
-    //Send accepted/error response to merchant
+    const newPayment: Payment = await createPayment(payment);
+
+    //Send payment and merchant details to acquirer for processing
+    const response: ProcessPaymentResponse = await processPayment(
+      merchant,
+      newPayment,
+    );
     // if accepted:
-    //Send payment details to acquirer for processing
+    //Send accepted response to merchant via webhook
+
     //Update payment status in DB when response is received(via webhook)
-    //Send response to merchant via webhook
-    res.send(newPayment);
+    const updatedPayment: Payment = await updatePaymentStatus(
+      response.reference,
+      response.status === "successful"
+        ? PaymentStatus.APPROVED
+        : PaymentStatus.DECLINED,
+    );
+
+    res.send(updatedPayment);
   } catch (error) {
     next(error);
   }

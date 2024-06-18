@@ -7,6 +7,8 @@ import { swaggerDocs } from "./utils/swagger";
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(express.json());
+
 app.use(`/docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use((req: Request, res: Response, next: NextFunction) => {
   logger.info(`${req.method} ${req.url}`);
