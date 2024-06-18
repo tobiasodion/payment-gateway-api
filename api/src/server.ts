@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import swaggerUi from "swagger-ui-express";
-import helloRoute from "./routes/hello";
+import paymentsRoute from "./routes/payments";
 import logger from "./utils/logger";
 import { swaggerDocs } from "./utils/swagger";
 
@@ -13,7 +13,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-app.use(`/hello`, helloRoute);
+app.use(`/payments`, paymentsRoute);
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
