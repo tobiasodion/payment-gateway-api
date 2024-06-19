@@ -10,9 +10,17 @@ export const validateRequest =
     const result = schema.safeParse(req.body);
     if (!result.success) {
       logger.error("Invalid request", result);
+
       next(
         new BadRequestError(
-          result.error.errors.map((err) => err.message).join(", "),
+          result.error.errors
+            .map((err) => {
+              if (err.path) {
+                return `${err.path.join(".")}: ${err.message}`;
+              }
+              err.message;
+            })
+            .join(", "),
         ),
       );
     }
