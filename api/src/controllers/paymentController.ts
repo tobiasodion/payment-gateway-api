@@ -20,6 +20,7 @@ import {
   InvalidMerchantError,
   NotFoundError,
 } from "../exceptions";
+import { maskCard } from "../utils/cardMasker";
 
 export const getPaymentByIdHandler = async (
   req: Request,
@@ -35,7 +36,12 @@ export const getPaymentByIdHandler = async (
       next(new NotFoundError("Payment not found"));
       return;
     }
-    res.status(200).send(payment);
+
+    const paymentWithMaskedCard = {
+      ...payment,
+      creditCard: maskCard(payment.creditCard),
+    };
+    res.status(200).send(paymentWithMaskedCard);
   } catch (error) {
     logger.error("Error in getPaymentById", error);
     next(new InternalServerError("Something went wrong!"));
