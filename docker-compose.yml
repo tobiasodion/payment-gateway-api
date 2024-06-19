@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./api
+    ports:
+      - "3001:3001"
+    
+  simulator:
+    build:
+      context: ./bankSimulator
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
