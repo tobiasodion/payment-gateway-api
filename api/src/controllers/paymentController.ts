@@ -91,7 +91,12 @@ export const postPaymentHandler = async (
         : PaymentStatus.DECLINED,
     );
 
-    res.send(updatedPayment);
+    const updatedPaymentWithMaskedCard = {
+      ...updatedPayment,
+      creditCard: maskCard(updatedPayment.creditCard),
+    };
+
+    res.send(updatedPaymentWithMaskedCard);
   } catch (error) {
     logger.error("Error in postPayment", error);
     next(new InternalServerError("Something went wrong!"));
