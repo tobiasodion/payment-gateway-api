@@ -5,6 +5,17 @@ The payment gateway project includes the following:
 - **Acquiring bank simulator** - A simulation of an acquiring bank to process the payment from the payment gateway
 - **A bank simulator** - A web app for developers to simulate and explore the APIs.
 
+## Technology Stack
+The technology stack is based on node.js and typescript as follows:
+
+### Payment Gateway API
+- express.js
+
+### Bank Simulator
+- React
+- Vite
+- Tailwind
+
 ## To run - With Docker-Compose
 
 ### Requirements
