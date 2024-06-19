@@ -9,7 +9,11 @@ import { Payment } from "../models/payments";
 import { PaymentStatus } from "../models/enums";
 import { randomUUID } from "crypto";
 import { getMerchantById } from "../service/merchantService";
-import { ProcessPaymentResponse, processPayment } from "../simulator/acquirer";
+import {
+  AcquirerMode,
+  ProcessPaymentResponse,
+  processPayment,
+} from "../simulator/acquirer";
 import {
   InternalServerError,
   InvalidMerchantError,
@@ -43,6 +47,10 @@ export const postPaymentHandler = async (
   next: NextFunction,
 ) => {
   logger.info("postPayment endpoint hit");
+  const acquirerMode = req.get("x-Acquirer-Mode") as string;
+  logger.info(
+    `Acquirer mode: ${acquirerMode === "failure" ? "failure" : "success"}`,
+  );
   try {
     //Validate payment details - (merchant id)
     const merchant = await getMerchantById(req.body.merchantId);
@@ -57,12 +65,13 @@ export const postPaymentHandler = async (
       status: PaymentStatus.PENDING,
       ...req.body,
     };
-    const newPayment: Payment = await createPayment(payment);
+    const pendingPayment: Payment = await createPayment(payment);
 
     //Send payment and merchant details to acquirer for processing
     const response: ProcessPaymentResponse = await processPayment(
       merchant,
-      newPayment,
+      pendingPayment,
+      acquirerMode === "failure" ? AcquirerMode.FAILURE : AcquirerMode.SUCCESS,
     );
     // if accepted:
     //Send accepted response to merchant via webhook
@@ -71,7 +80,7 @@ export const postPaymentHandler = async (
     const updatedPayment: Payment = await updatePaymentStatus(
       response.reference,
       response.status === "successful"
-        ? PaymentStatus.APPROVED
+        ? PaymentStatus.AUTHORIZED
         : PaymentStatus.DECLINED,
     );
 

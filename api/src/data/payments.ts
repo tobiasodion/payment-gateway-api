@@ -7,7 +7,7 @@ export const payments: Payment[] = [
     id: randomUUID(),
     amount: 100,
     currency: "USD",
-    status: PaymentStatus.APPROVED,
+    status: PaymentStatus.AUTHORIZED,
     merchantId: "1",
     creditCard: {
       cardNumber: "1234-5678-1234-5678",
@@ -21,7 +21,7 @@ export const payments: Payment[] = [
     id: randomUUID(),
     amount: 200,
     currency: "USD",
-    status: PaymentStatus.APPROVED,
+    status: PaymentStatus.AUTHORIZED,
     merchantId: "1",
     creditCard: {
       cardNumber: "1234-5678-1234-5678",
