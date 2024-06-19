@@ -280,7 +280,7 @@ function App() {
                 {response && <div>Status Code: {response?.code}</div>}
               </div>
 
-              <div className="flex justify-center bg-white h-full">
+              <div className="flex justify-center bg-white h-[80%] lg:h-[100vh]">
                 {loading ? (
                   <span>Loading...</span>
                 ) : (
