@@ -3,7 +3,7 @@ import { Payment } from "../models/payments";
 
 export const payments: Payment[] = [
   {
-    id: "d446e2b3-0977-4f1c-9d2f-5a1d6c781f63",
+    id: "9b4f5f0a-6f1d-4f99-9d13-5b35cfad6dbf",
     amount: 100,
     currency: "USD",
     status: PaymentStatus.AUTHORIZED,
@@ -17,7 +17,7 @@ export const payments: Payment[] = [
     reference: "ref-123",
   },
   {
-    id: "dbe83441-7d13-4c08-b6a2-64598e879a3e",
+    id: "3f98fbbc-b5f1-4b7b-824b-4c6a7ddf1a0a",
     amount: 200,
     currency: "USD",
     status: PaymentStatus.AUTHORIZED,
@@ -31,7 +31,7 @@ export const payments: Payment[] = [
     reference: "ref-456",
   },
   {
-    id: "dbe83441-7d13-4c08-b6a2-64598e879a3e",
+    id: "d230cf92-ec5b-4828-8f62-5b43a65c017d",
     amount: 300,
     currency: "USD",
     status: PaymentStatus.DECLINED,
@@ -45,7 +45,7 @@ export const payments: Payment[] = [
     reference: "ref-789",
   },
   {
-    id: "dbe83441-7d13-4c08-b6a2-64598e879a3e",
+    id: "cb1d81e7-8f64-42ed-a682-83e9eae0c26e",
     amount: 400,
     currency: "USD",
     status: PaymentStatus.DECLINED,

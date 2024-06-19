@@ -5,8 +5,15 @@ import logger from "./utils/logger";
 import { swaggerDocs } from "./utils/swagger";
 import { NotFoundError } from "./exceptions";
 import { errorHandler } from "./middleware/errorHandler";
+import cors from "cors";
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  }),
+);
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
