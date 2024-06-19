@@ -7,6 +7,9 @@ import {
 import { apis } from "./data/simulations";
 
 function App() {
+  const API_BASE_URL =
+    import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
+
   const [idInput, setIdInput] = useState("");
   const [id, setId] = useState<string>();
   const [payloadInput, setPayloadInput] = useState<string>("");
@@ -64,7 +67,7 @@ function App() {
     const fetchPayment = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:3000/payments/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/payments/${id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -89,7 +92,7 @@ function App() {
     const postPayment = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:3000/payments/`, {
+        const response = await fetch(`${API_BASE_URL}/payments/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
