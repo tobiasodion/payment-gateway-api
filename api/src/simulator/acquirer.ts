@@ -1,7 +1,7 @@
 import { Merchant } from "../models/merchants";
 import { Payment } from "../models/payments";
 
-enum ProcessingStatus {
+export enum ProcessingStatus {
   SUCCESSFUL = "successful",
   UNSUCCESSFUL = "unsuccessful",
 }

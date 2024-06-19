@@ -12,6 +12,7 @@ import { getMerchantById } from "../service/merchantService";
 import {
   AcquirerMode,
   ProcessPaymentResponse,
+  ProcessingStatus,
   processPayment,
 } from "../simulator/acquirer";
 import {
@@ -79,7 +80,7 @@ export const postPaymentHandler = async (
     //Update payment status in DB when response is received(via webhook)
     const updatedPayment: Payment = await updatePaymentStatus(
       response.reference,
-      response.status === "successful"
+      response.status === ProcessingStatus.SUCCESSFUL
         ? PaymentStatus.AUTHORIZED
         : PaymentStatus.DECLINED,
     );
