@@ -3,6 +3,8 @@ import swaggerUi from "swagger-ui-express";
 import paymentsRoute from "./routes/payments";
 import logger from "./utils/logger";
 import { swaggerDocs } from "./utils/swagger";
+import { NotFoundError } from "./exceptions";
+import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,10 +19,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 app.use(`/payments`, paymentsRoute);
 
+// catch 404 and forward to error handler
+app.use((req, res, next) => next(new NotFoundError("Resource not found")));
+
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  logger.error(`Error: ${err.message}`);
-  res.status(500).send("Internal Server Error");
+  if (!errorHandler.isTrustedError(err)) {
+    next(err);
+  }
+  errorHandler.handleError(err, res);
 });
 
 app.listen(port, () => {

@@ -10,6 +10,11 @@ import { PaymentStatus } from "../models/enums";
 import { randomUUID } from "crypto";
 import { getMerchantById } from "../service/merchantService";
 import { ProcessPaymentResponse, processPayment } from "../simulator/acquirer";
+import {
+  InternalServerError,
+  InvalidMerchantError,
+  NotFoundError,
+} from "../exceptions";
 
 export const getPaymentByIdHandler = async (
   req: Request,
@@ -21,12 +26,14 @@ export const getPaymentByIdHandler = async (
     const id = req.params.id;
     const payment: Payment | undefined = await getPaymentsById(id);
     if (!payment) {
-      res.status(404).send("Payment not found");
+      logger.error(`Payment with id: ${id} not found`);
+      next(new NotFoundError("Payment not found"));
       return;
     }
     res.status(200).send(payment);
   } catch (error) {
-    next(error);
+    logger.error("Error in getPaymentById", error);
+    next(new InternalServerError("Something went wrong!"));
   }
 };
 
@@ -39,6 +46,10 @@ export const postPaymentHandler = async (
   try {
     //Validate payment details - (merchant id)
     const merchant = await getMerchantById(req.body.merchantId);
+    if (!merchant) {
+      next(new InvalidMerchantError("Invalid merchant Id"));
+      return;
+    }
 
     //Create a payment in DB with pending status
     const payment: Payment = {
@@ -66,6 +77,7 @@ export const postPaymentHandler = async (
 
     res.send(updatedPayment);
   } catch (error) {
-    next(error);
+    logger.error("Error in postPayment", error);
+    next(new InternalServerError("Something went wrong!"));
   }
 };

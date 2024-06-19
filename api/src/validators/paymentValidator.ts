@@ -4,13 +4,13 @@ export const paymentSchema = z
   .object({
     amount: z.number().gt(0, { message: "Amount should be greater than 0" }),
     currency: z.enum(["EUR", "GBP", "USD"], {
-      message: "Invalid currency, should be 'EUR', 'GBP', or 'USD'",
+      message: "Invalid currency - should be 'EUR', 'GBP', or 'USD'",
     }),
     merchantId: z.string(),
     creditCard: z
       .object({
         cardNumber: z.string().regex(/^\d{4}-\d{4}-\d{4}-\d{4}$/, {
-          message: "Invalid card number format. Should be xxxx-xxxx-xxxx-xxxx",
+          message: "Invalid card number format - Should be xxxx-xxxx-xxxx-xxxx",
         }),
         cardHolder: z.string(),
         expirationDate: z.string(),

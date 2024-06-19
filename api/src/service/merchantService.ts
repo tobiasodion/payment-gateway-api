@@ -1,14 +1,12 @@
 import { merchants } from "../data/merchants";
 import { Merchant } from "../models/merchants";
 
-export const getMerchantById = async (id: string): Promise<Merchant> => {
+export const getMerchantById = async (
+  id: string,
+): Promise<Merchant | undefined> => {
   try {
     //Get merchant from DB
-    const merchant = merchants.find((merchant) => merchant.id === id);
-    if (!merchant) {
-      throw new Error("Merchant not found");
-    }
-    return merchant;
+    return merchants.find((merchant) => merchant.id === id);
   } catch (error) {
     throw error;
   }
