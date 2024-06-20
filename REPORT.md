@@ -76,7 +76,7 @@ The plan for execution involved an agile approach as follows:
 - Implementing asynchronous features in the system with dummy data
 - Connecting to a real database
 
-As the database is a detail, this plan ensured that I focused on the core functionalities before introducing the database. Each stage of the implementation involved documentation update, code refactoring error handling and testing to ensure the quality and functionality of the system.
+As the database is a detail, this plan ensured that I focused on the core functionalities before introducing the database. Each stage of the implementation involved documentation update, code refactoring, error handling and testing to ensure the quality and functionality of the system.
 
 ## Implementation
 
@@ -89,7 +89,7 @@ This was implemented with express.js using the MVC architecture to split the sys
 - Dockerize the API service
 
 ### Acquiring Bank Simulator
-This was implemented as a function with some delays to mimic real-time behaviours of the acquiring bank and a mode flag to configure a predetermined response from the acquiring bank.
+This was implemented as a function with a mode flag to configure a predetermined response from the acquiring bank.
 
 ### Bank Simulation App
 This was implemented using a component-based framework(React) in order to leverage on the reusable components for a modular design. The steps involved:
@@ -97,15 +97,17 @@ This was implemented using a component-based framework(React) in order to levera
 - Project setup - Setting up the project with Vite and development dependencies (eslint, prettier, typescript)
 - Implementing the Simulator end-to-end as wireframe
 - Implemented styles with CSS
-- Refactoring implementation to extract reusable components and modularize the app
 - Implementing error handling and validation
 - Dockerize the app
 
-## Areas of Improvement
-- Testing - unit, integration, E2E 
-- Queues for resilience
+## Next steps & Areas of Improvement
+- Implementing the asynchronous features of the system
+- Refactoring simulator app to extract reusable components and modularize the app
+- Integrating with a database 
+- Testing - unit, integration, E2E
 - Retries on failure
 - Smart rerouting in case of multiple acquirers
+- Queues for resilience
 
 ## Possible Cloud Technologies & justification
 
