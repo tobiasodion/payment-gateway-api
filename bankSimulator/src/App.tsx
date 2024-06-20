@@ -20,6 +20,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isValidInput, setIsValidInput] = useState(false);
+  const [simulatePost, setSimulatePost] = useState(false);
+  const [simulateGet, setSimulateGet] = useState(false);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
@@ -29,9 +31,11 @@ function App() {
     event.preventDefault();
     if (simulation.type === SimulationType.GET_PAYMENT_BY_ID) {
       setId(idInput);
+      setSimulateGet(true);
     }
     if (simulation.type === SimulationType.POST_PAYMENT) {
       setPayload(payloadInput);
+      setSimulatePost(true);
     }
   };
 
@@ -83,10 +87,11 @@ function App() {
         setLoading(false);
       } finally {
         setLoading(false);
+        setSimulateGet(false);
       }
     };
-    id && fetchPayment();
-  }, [id]);
+    simulateGet && fetchPayment();
+  }, [simulateGet]);
 
   useEffect(() => {
     const postPayment = async () => {
@@ -112,10 +117,11 @@ function App() {
         setLoading(false);
       } finally {
         setLoading(false);
+        setSimulatePost(false);
       }
     };
-    payload && postPayment();
-  }, [payload]);
+    simulatePost && postPayment();
+  }, [simulatePost]);
 
   return (
     <div>
