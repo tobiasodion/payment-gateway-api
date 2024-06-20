@@ -89,7 +89,7 @@ This was implemented with express.js using the MVC architecture to split the sys
 - Dockerize the API service
 
 ### Acquiring Bank Simulator
-This was implemented as a function with a mode flag to configure a predetermined response from the acquiring bank.
+This was implemented as a function with a mode flag to configure a predetermined response from the acquiring bank. The flag is passed to the simulator as a custom header `x-Acquirer-Mode` from the simulator app during simulation to simulate a success or unsuccessful response.
 
 ### Bank Simulation App
 This was implemented using a component-based framework(React) in order to leverage on the reusable components for a modular design. The steps involved:

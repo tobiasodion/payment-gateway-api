@@ -96,7 +96,7 @@ function App() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-acquirer-Mode": isChecked
+            "x-Acquirer-Mode": isChecked
               ? AcquirerMode.FAILURE
               : AcquirerMode.SUCCESS,
           },
