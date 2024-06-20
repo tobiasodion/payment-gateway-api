@@ -103,7 +103,8 @@ This was implemented using a component-based framework(React) in order to levera
 ## Next steps & Areas of Improvement
 - Implementing the asynchronous features of the system
 - Refactoring simulator app to extract reusable components and modularize the app
-- Integrating with a database 
+- Integrating with a database
+- Updating the swagger documentation 
 - Testing - unit, integration, E2E
 - Retries on failure
 - Smart rerouting in case of multiple acquirers

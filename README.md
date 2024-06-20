@@ -48,6 +48,9 @@ The technology stack is based on node.js and typescript as follows:
 - Start the server by running `npm run dev`
 - Take note of this `simulate url`
 
+- Access the bank simulator on `http://localhost:3000`
+- Access the API documentation on `http://localhost:<PORT>/docs`
+
 ### Troubleshooting
 
 - **CORS** - The bank simulator will run on `http:localhost:3000` by default which is configured in the `vite.config.js` file. This url is registered in the server's cors middleware to allow requests from the simulator to the server. However, if this url configuration is changed, the cors middleware on the server MUST be updated with this new url to prevent potential request rejection problems.
